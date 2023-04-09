@@ -1,7 +1,7 @@
-import { DiceConfigurationCounter } from './DiceConfigurationCounter'
+import { DiceConfigurationAPI, IDiceConfigurationAPI } from './api/dice-configuration.api'
 
 export function getTotalPossibleConfigurations(total: number, numberOfDices: number, numberOfFaces: number): number {
-  const counter = new DiceConfigurationCounter(total, numberOfDices, numberOfFaces)
+  const counter: IDiceConfigurationAPI = new DiceConfigurationAPI(total, numberOfDices, numberOfFaces)
   return counter.getTotalPossibleConfigurations()
 }
 
