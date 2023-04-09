@@ -12,23 +12,29 @@ export function getTotalPossibleConfigurations(total: number, numberOfDices: num
   return countConfigurations(total, numberOfDices, numberOfFace)
 }
 
-function countConfigurations(total: number, remainingDices: number, numberOfFace: number): number {
+function countConfigurations(remainingTotal: number, remainingDices: number, numberOfFace: number): number {
   // S'il ne reste plus de dés à lancer et que le total est égal à 0,
   // il y a une configuration possible : on est dans le cas souhaité.
   if (remainingDices === 0) {
-    return total === 0 ? 1 : 0
+    return remainingTotal === 0 ? 1 : 0
   }
 
   // Cas de base : s'il ne reste plus de dés à lancer et que le total est différent de 0,
   // il n'y a aucune configuration possible
-  if (total < 0) {
+  if (remainingTotal < 0) {
     return 0
   }
 
   // Calcul du nombre de configurations
+  // Différence avec la V1 : Utilisation d'un while au lieu d'un for
+  // Utilité : On limite le nombre de récursions avec la condition "i <= total".
+  // En d'autres termes, si i (correspondant à la face actuellement testée) est supérieur au total restant,
+  // alors retourner dans la boucle est inutile, car la configuration sera obligatoirement mauvaise.
   let numberOfConfigurations = 0
-  for (let face = 1; face <= numberOfFace; face++) {
-    numberOfConfigurations += countConfigurations(total - face, remainingDices - 1, numberOfFace)
+  let i = 1
+  while (i <= numberOfFace && i <= remainingTotal) {
+    numberOfConfigurations += countConfigurations(remainingTotal - i, remainingDices - 1, numberOfFace)
+    i++
   }
 
   return numberOfConfigurations
