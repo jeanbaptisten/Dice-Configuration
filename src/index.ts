@@ -26,15 +26,12 @@ function countConfigurations(remainingTotal: number, remainingDices: number, num
   }
 
   // Calcul du nombre de configurations
-  // Différence avec la V1 : Utilisation d'un while au lieu d'un for
-  // Utilité : On limite le nombre de récursions avec la condition "i <= total".
+  // Différence avec la V1 : On limite le nombre de récursions avec la condition "i <= remainingTotal".
   // En d'autres termes, si i (correspondant à la face actuellement testée) est supérieur au total restant,
   // alors retourner dans la boucle est inutile, car la configuration sera obligatoirement mauvaise.
   let numberOfConfigurations = 0
-  let i = 1
-  while (i <= numberOfFace && i <= remainingTotal) {
+  for (let i = 1; i <= numberOfFace && i <= remainingTotal; i++) {
     numberOfConfigurations += countConfigurations(remainingTotal - i, remainingDices - 1, numberOfFace)
-    i++
   }
 
   return numberOfConfigurations
