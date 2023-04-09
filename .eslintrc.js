@@ -25,7 +25,8 @@ module.exports = {
         "singleQuote": true,
         "tabWidth": 2,
         "printWidth": 150,
-        "trailingComma": "es5"
+        "trailingComma": "es5",
+        "endOfLine": "auto"
       }
     ]
   },
