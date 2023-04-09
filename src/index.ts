@@ -7,7 +7,7 @@ export function getTotalPossibleConfigurations(total: number, numberOfDices: num
 
   if (total === 1 || total < numberOfDices) return 0
   if (total === numberOfDices) return 1
-  if (total === numberOfDices * numberOfDices) return 1
+  if (total === numberOfDices * numberOfFace) return 1
 
   return countConfigurations(total, numberOfDices, numberOfFace)
 }
