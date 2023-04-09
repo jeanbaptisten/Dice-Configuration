@@ -1,17 +1,17 @@
 import { IllegalArgumentException } from './exceptions/illegal-argument.exception'
 
-type TMemo = { [key: string]: number }
+interface IMemo {
+  [key: string]: number
+}
 
 export class DiceConfigurationCounter {
   private readonly _total: number
   private readonly _numberOfDices: number
   private readonly _numberOfFaces: number
-  private readonly _memo: TMemo
+  private readonly _memo: IMemo
 
   constructor(total: number, numberOfDices: number, numberOfFaces: number) {
-    if (numberOfDices <= 0) throw new IllegalArgumentException(`${numberOfDices} cannot be zero or negative`)
-    if (numberOfFaces <= 0) throw new IllegalArgumentException(`${numberOfFaces} cannot be zero or negative`)
-    if (total <= 0) throw new IllegalArgumentException(`${total} cannot be zero or negative`)
+    DiceConfigurationCounter.validateInput(total, numberOfDices, numberOfFaces)
 
     this._total = total
     this._numberOfDices = numberOfDices
@@ -66,5 +66,14 @@ export class DiceConfigurationCounter {
     this._memo[memoKey] = numberOfConfigurations
 
     return numberOfConfigurations
+  }
+
+  // Choix d'une propriété statique pour deux raisons:
+  // 1. Lisibilité : Cette méthode a pour but d'être utilisée sans aucune importance de l'état de l'objet courant.
+  // 2. Sécurité : Je veux m'assurer que la méthode ne puisse à aucun moment utiliser une de mes variables d'instance.
+  private static validateInput(total: number, numberOfDices: number, numberOfFaces: number): void {
+    if (numberOfDices <= 0) throw new IllegalArgumentException(`${numberOfDices} cannot be zero or negative`)
+    if (numberOfFaces <= 0) throw new IllegalArgumentException(`${numberOfFaces} cannot be zero or negative`)
+    if (total <= 0) throw new IllegalArgumentException(`${total} cannot be zero or negative`)
   }
 }
