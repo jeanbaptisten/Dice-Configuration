@@ -1,9 +1,4 @@
 import { IllegalArgumentException } from '../exceptions/illegal-argument.exception'
-
-interface IMemo {
-  [key: string]: number
-}
-
 /**
  * The IDiceConfigurationAPI interface represents the overall logic of the program.
  * It provides a clean and simplified API to interact with the DiceConfigurationCounter class,
@@ -28,7 +23,7 @@ export class DiceConfigurationAPI implements IDiceConfigurationAPI {
   private readonly _total: number
   private readonly _numberOfDice: number
   private readonly _numberOfFaces: number
-  private readonly _memo: IMemo
+  private readonly _memo: Map<string, number>
 
   constructor(total: number, numberOfDice: number, numberOfFaces: number) {
     DiceConfigurationAPI.validateInput(total, numberOfDice, numberOfFaces)
@@ -36,7 +31,7 @@ export class DiceConfigurationAPI implements IDiceConfigurationAPI {
     this._total = total
     this._numberOfDice = numberOfDice
     this._numberOfFaces = numberOfFaces
-    this._memo = {}
+    this._memo = new Map<string, number>()
   }
 
   public getTotalPossibleConfigurations(): number {
@@ -51,8 +46,8 @@ export class DiceConfigurationAPI implements IDiceConfigurationAPI {
     const memoKey = `${remainingTotal}|${remainingDice}`
 
     // If the result is already in memory, return it. (memoization)
-    if (memoKey in this._memo) {
-      return this._memo[memoKey]
+    if (this._memo.has(memoKey)) {
+      return this._memo.get(memoKey)!
     }
 
     // If no more dice and remaining total equals 0, valid configuration. Otherwise, invalid.
@@ -71,7 +66,7 @@ export class DiceConfigurationAPI implements IDiceConfigurationAPI {
     }
 
     // Store the result in memory for the current state. (memoization)
-    this._memo[memoKey] = numberOfConfigurations
+    this._memo.set(memoKey, numberOfConfigurations)
 
     return numberOfConfigurations
   }

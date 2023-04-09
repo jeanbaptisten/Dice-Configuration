@@ -47,3 +47,7 @@ It will then calculate the number of configurations for these parameters. Spoile
 Then the program continues. Another roll of the dice: "6, 6, 3". The program will therefore call this function with the
 same parameters. Thanks to memoization, the program already "knows" the result because this result is stored in an
 object. We therefore gain in performance, because all the calculations do not need to be redone.
+
+### <span style="color:#7eb5fc;">V4 (~0.48 ms)</span>
+
+I was using an object to represent program memory. To gain performance, I changed it to a map.
