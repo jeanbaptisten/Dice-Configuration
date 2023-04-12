@@ -9,7 +9,8 @@ number of dice and the number of faces.
 
 Simply download source code, change parameters in src/try.ts then run 
 ````bash
-ts-node src/try.ts
+$ yarn install
+$ ts-node src/try.ts
 ````
 
 ## <span style="color:#3d90fa;">Explanations</span>
